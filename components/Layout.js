@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
+import Navbar from './Navbar'
 
 const Layout = ({ children, home }) => {
     return (
@@ -10,13 +10,12 @@ const Layout = ({ children, home }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className='w-screen min-h-screen'>
-                {children}
-                {!home && (
-                    <div className='p-2'>
-                        <Link href='/'>← Back to home</Link>
-                    </div>
-                )}
+            <main className='w-screen px-4 flex flex-col lg:flex-row lg:h-screen 
+            bg-amber-100/30'>
+                <Navbar />
+                <div className='flex-1 overflow-auto py-4 lg:ml-6 mt-4 lg:mt-0'>
+                    {children}
+                </div>
             </main>
         </div>
     )
