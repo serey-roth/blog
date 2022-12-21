@@ -22,19 +22,22 @@ export default function Home({ posts }: HomeProps) {
             <Head>
                 <title>Serey's Blog</title>
             </Head>
-            <section className='flex flex-col gap-2 items-center'>
-                <h1 className='font-bold text-3xl'>Serey's Blog</h1>
-                <div className='flex flex-col gap-2 max-w-[1000px]'>
-                    {posts.map(({ id, title, firstPublishedAt, author }) => (
-                        <Link key={id} href={`/posts/${id}`}>
-                            <div className='border p-2 rounded-lg drop-shadow-sm flex flex-col
-                            shadow-sm shadow-gray-100'>
-                                <h3 className='font-semibold mb-4'>{title}</h3>
-                                <p className='text-sm'>By: {author}</p>
-                                <p className='text-sm'>Published On: {(new Date(firstPublishedAt)).toDateString()}</p>
-                            </div>
-                        </Link>
-                    ))}
+            <section className='p-4'>
+               <div className='relative left-1/2 -translate-x-1/2 max-w-[800px]'>
+                    <h1 className='font-bold text-3xl'>Serey's Blog</h1>
+                    <hr className='my-3'/>
+                    <div className='flex flex-col gap-2 py-2'>
+                        {posts.map(({ id, title, firstPublishedAt, author }, index) => (
+                            <Link key={id} href={`/posts/${id}`}>
+                                <div className='p-2 border drop-shadow-sm shadow-md rounded-lg
+                                flex flex-col'>
+                                    <h3 className='font-semibold mb-4'>{title}</h3>
+                                    <p className='text-sm'>By: {author}</p>
+                                    <p className='text-sm'>Published On: {(new Date(firstPublishedAt)).toDateString()}</p>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
                 </div>
             </section>
         </Layout>

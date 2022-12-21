@@ -21,7 +21,8 @@ const Post = ({ post }: PostProps) => {
             <Head>
                 <title>{post.title}</title>
             </Head>
-            <article className='flex flex-col gap-2 p-2'>
+            <article className='flex flex-col gap-2 py-3 px-4
+            max-w-[800px] relative left-1/2 -translate-x-1/2 h-screen'>
                 <h1 className='text-3xl font-bold mt-1'>{post.title}</h1>
                 <p className='text-sm font-semibold'>Author: {post.author}</p>
                 <p className='text-sm'>Published On: {(new Date(post.firstPublishedAt)).toDateString()}</p>
