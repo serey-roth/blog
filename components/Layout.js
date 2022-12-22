@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head'
 import Navbar from './Navbar'
+import Image from 'next/image'
 
-const Layout = ({ children, home }) => {
+import { BiMenu } from 'react-icons/bi'
+import { IoMdClose } from 'react-icons/io'
+
+const Layout = ({ children, mainPage }) => {
+    const [menu, setMenu] = useState(false);
+
+    const handleToggleMenu = () => {
+        setMenu(prevState => !prevState);
+    }
+
     return (
         <div>
             <Head>
@@ -10,11 +20,49 @@ const Layout = ({ children, home }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className='w-screen px-4 flex flex-col lg:flex-row lg:h-screen 
-            bg-amber-100/30'>
-                <Navbar />
-                <div className='flex-1 overflow-auto py-4 lg:ml-6 mt-4 lg:mt-0'>
-                    {children}
+            <main className='w-screen px-4 lg:h-screen min-h-screen lg:min-h-auto bg-amber-100/30'>
+
+                {menu ?
+                    (<IoMdClose
+                        size={30}
+                        className='fixed right-1 top-1 cursor-pointer lg:hidden z-20'
+                        onClick={handleToggleMenu}
+                    />)
+                    :
+                    (<BiMenu
+                        size={30}
+                        className='fixed right-1 top-1 cursor-pointer lg:hidden z-20'
+                        onClick={handleToggleMenu}
+                    />)
+                }
+
+                <Navbar open={menu} />
+
+                <div className={`flex lg:flex-row py-4 w-full ${mainPage ? 'flex-col' : 'flex-col-reverse'}`}>
+                    <div className='flex flex-col sm:flex-row lg:flex-col gap-4 lg:max-w-[250px]'>
+                        <Image
+                            src='/serey.png'
+                            alt="serey's headshot"
+                            height={100}
+                            width={100}
+                            priority
+                            quality={100}
+                            className='rounded-full'
+                        />
+                        <div className='flex flex-col'>
+                            <h3 className='font-bold text-3xl my-2'>Hello, I'm Serey!</h3>
+                            <p className='text-md row-start-2'>
+                                Welcome to my corner. This is where I share my portfolio, my thoughts
+                                and everthing that I'm obsessed with at the moment.
+                            </p>
+                        </div>
+                    </div>
+
+                    {!mainPage && <hr className='my-4 '/>}
+                    
+                    <div className='flex-1 overflow-auto lg:ml-6 mt-4 lg:mt-0'>
+                        {children}
+                    </div>
                 </div>
             </main>
         </div>
