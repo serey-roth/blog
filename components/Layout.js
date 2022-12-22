@@ -21,7 +21,8 @@ const Layout = ({ children, mainPage }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className='w-screen px-4 lg:h-screen min-h-screen lg:min-h-auto bg-amber-100/30'>
+            <main className='w-screen px-4 lg:px-8 lg:h-screen min-h-screen lg:min-h-auto
+            bg-gradient-to-r from-amber-400'>
 
                 {menu ?
                     (<IoMdClose
@@ -51,6 +52,7 @@ const Layout = ({ children, mainPage }) => {
                 </div>
 
                 <Footer />
+
             </main>
         </div>
     )
