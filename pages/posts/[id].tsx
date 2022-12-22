@@ -1,8 +1,15 @@
 import React from 'react'
+import Image from 'next/image'
 import Layout from '../../components/Layout'
 import Head from 'next/head'
 
 const CONTENTFUL_URL = `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master`
+
+interface ImageItem {
+    title: string,
+    url: string,
+    description: string,
+}
 
 interface PostProps {
     post: {
@@ -11,21 +18,36 @@ interface PostProps {
         title: string,
         description: any,
         author: string,
-        imageUrl?: string,
+        images: ImageItem[]
     }
 }
 
 const Post = ({ post }: PostProps) => {
     return (
-        <Layout home={false}>
+        <Layout mainPage={false}>
             <Head>
                 <title>{post.title}</title>
             </Head>
-            <article className='flex flex-col gap-2 py-3 px-4
-            max-w-[800px] relative left-1/2 -translate-x-1/2 h-screen'>
-                <h1 className='text-3xl font-bold mt-1'>{post.title}</h1>
-                <p className='text-sm font-semibold'>Author: {post.author}</p>
-                <p className='text-sm'>Published On: {(new Date(post.firstPublishedAt)).toDateString()}</p>
+            <article className='flex flex-col gap-4 pt-3 bottom-0 max-w-[1000px]
+            relative left-1/2 -translate-x-1/2 leading-relaxed'>
+                <div className='w-full flex mb-4'>
+                {post.images.map(image => (
+                        <Image 
+                            src={image.url}
+                            alt={image.description}
+                            width={300}
+                            height={400}
+                            priority
+                            quality={100}
+                            className=' max-h-[500px] w-full aspect-auto origin-bottom'
+                            />
+                    ))}
+                </div>
+                <h1 className='text-3xl lg:text-5xl font-bold'>{post.title}</h1>
+                <div className='flex sm:flex-row flex-col sm:items-center justify-between'>
+                    <p className='text-sm font-semibold'>Written by {post.author}</p>
+                    <p className='text-sm'>{(new Date(post.firstPublishedAt)).toDateString()}</p>
+                </div>
                 <div>
                    {getBlogDescriptionHTML(post.description.content)}
                 </div>
@@ -86,6 +108,13 @@ export async function getStaticProps({ params }: { params: any }) {
                     json
                 },
                 author,
+                imagesCollection {
+                    items {
+                        title,
+                        url,
+                        description
+                    }
+                }
             }
         }`
     });
@@ -110,6 +139,7 @@ export async function getStaticProps({ params }: { params: any }) {
         title: blogEntryData.title,
         description: blogEntryData.description.json,
         author: blogEntryData.author,
+        images: blogEntryData.imagesCollection.items,
     }
 
     return {
@@ -130,11 +160,14 @@ function getBlogDescriptionHTML(content: any) {
             )
         } else if (item.nodeType === 'unordered-list') {
             return (
-                <ul>
-                    {getUnorderedListItems(item.content).map((listItem: string, index: number) => (
-                        <li key={`list-item-${index}`}>{listItem}</li>
-                    ))}
-                </ul>
+                <>
+                    <ul className='list-disc'>
+                        {getUnorderedListItems(item).map((listItem: string, index: number) => (
+                            <li className='ml-8 mb-4' key={`list-item-${index}`}>{listItem}</li>
+                        ))}
+                    </ul>
+                    <br />
+                </>
             )
         }
     })

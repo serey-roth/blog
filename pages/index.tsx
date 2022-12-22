@@ -1,45 +1,71 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import Layout from '../components/Layout';
+import Post from './posts/[id]';
 
 const CONTENTFUL_URL = `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master`
+
+interface ImageItem {
+    title: string,
+    url: string,
+    description: string,
+}
 
 interface Post {
     id: string,
     title: string,
     firstPublishedAt: string,
     author: string,
+    images: ImageItem[],
 }
 
-interface HomeProps {
+interface Props {
     posts: Post[]
 }
 
-export default function Home({ posts }: HomeProps) {
+const Posts = ({ posts }: Props) => {
     return (
-        <Layout home>
+        <div className='flex sm:grid sm:grid-cols-2 lg:grid-cols-3 flex-col gap-2 px-2'>
+            {posts.map(({ id, title, firstPublishedAt, author, images }) => (
+                <Link key={id} href={`/posts/${id}`} className='mb-4'>
+                    <div className='flex flex-col gap-2 rounded-xl border relative'>
+                        <Image
+                            width={250}
+                            height={100}
+                            src={images[0].url}
+                            alt={images[0].description}
+                            className='w-full max-h-[200px] object-cover aspect-square rounded-t-xl'
+                        />
+                        <div className='flex flex-col gap-2 w-full p-4'>
+                            <h3 className='font-semibold text-xl lg:text-2xl mb-4'>{title}</h3>
+                            <p className='text-sm'>Written by <strong>{author}</strong></p>
+                            <p className='text-sm absolute top-2 invert-[100%] right-4 font-bold'>
+                                {(new Date(firstPublishedAt)).toDateString()}
+                            </p>
+                        </div>
+                    </div>      
+                </Link>
+            ))}
+        </div>
+    )
+}
+
+export default function Home({ posts }: Props) {
+    return (
+        <Layout mainPage>
             <Head>
-                <title>Serey's Blog</title>
+                <title>Serey's Thoughts</title>
             </Head>
-            <section className='p-4'>
-               <div className='relative left-1/2 -translate-x-1/2 max-w-[800px]'>
-                    <h1 className='font-bold text-3xl'>Serey's Blog</h1>
-                    <hr className='my-3'/>
-                    <div className='flex flex-col gap-2 py-2'>
-                        {posts.map(({ id, title, firstPublishedAt, author }, index) => (
-                            <Link key={id} href={`/posts/${id}`}>
-                                <div className='p-2 border drop-shadow-sm shadow-md rounded-lg
-                                flex flex-col'>
-                                    <h3 className='font-semibold mb-4'>{title}</h3>
-                                    <p className='text-sm'>By: {author}</p>
-                                    <p className='text-sm'>Published On: {(new Date(firstPublishedAt)).toDateString()}</p>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
+            <div className='h-full overflow-auto flex flex-col gap-4'>
+                <div className='lg:sticky lg:top-0 bg-gradient-to-tr from-rose-300 to-amber-300
+                p-4 rounded-t-lg rounded-b-xl text-center lg:text-left z-[5]
+                text-white drop-shadow-sm shadow-slate-400'>
+                    <h1 className='font-bold text-3xl lg:text-5xl'>Serey's Thoughts</h1>
                 </div>
-            </section>
+                <Posts posts={posts} />
+            </div>
         </Layout>
     )
 }
@@ -54,7 +80,14 @@ export async function getStaticProps() {
                         firstPublishedAt,
                     }
                     title,
-                    author
+                    author, 
+                    imagesCollection {
+                        items {
+                            title,
+                            url,
+                            description
+                        }
+                    }
                 }
             }
         }`
@@ -79,6 +112,7 @@ export async function getStaticProps() {
         firstPublishedAt: entry.sys.firstPublishedAt,
         title: entry.title,
         author: entry.author,
+        images: entry.imagesCollection.items,
     }))
 
     return {
