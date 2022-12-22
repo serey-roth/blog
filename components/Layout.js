@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
 import Navbar from './Navbar'
-import Image from 'next/image'
 
 import { BiMenu } from 'react-icons/bi'
 import { IoMdClose } from 'react-icons/io'
+import Intro from './Intro'
+import Footer from './Footer'
 
 const Layout = ({ children, mainPage }) => {
     const [menu, setMenu] = useState(false);
@@ -38,25 +39,9 @@ const Layout = ({ children, mainPage }) => {
 
                 <Navbar open={menu} />
 
-                <div className={`flex lg:flex-row py-4 w-full ${mainPage ? 'flex-col' : 'flex-col-reverse'}`}>
-                    <div className='flex flex-col sm:flex-row lg:flex-col gap-4 lg:max-w-[250px]'>
-                        <Image
-                            src='/serey.png'
-                            alt="serey's headshot"
-                            height={100}
-                            width={100}
-                            priority
-                            quality={100}
-                            className='rounded-full'
-                        />
-                        <div className='flex flex-col'>
-                            <h3 className='font-bold text-3xl my-2'>Hello, I'm Serey!</h3>
-                            <p className='text-md row-start-2'>
-                                Welcome to my corner. This is where I share my portfolio, my thoughts
-                                and everthing that I'm obsessed with at the moment.
-                            </p>
-                        </div>
-                    </div>
+                <div className={`flex lg:flex-row py-4 w-full max-h-full 
+                ${mainPage ? 'flex-col' : 'flex-col-reverse'}`}>
+                    <Intro />
 
                     {!mainPage && <hr className='my-4 '/>}
                     
@@ -64,6 +49,8 @@ const Layout = ({ children, mainPage }) => {
                         {children}
                     </div>
                 </div>
+
+                <Footer />
             </main>
         </div>
     )
