@@ -12,7 +12,7 @@ const Navbar = ({ open }) => {
             ${open ? 'h-screen bg-black/70' : 'h-0'}`}/>
 
             <nav className={`flex flex-col items-start gap-3 will-change-transform
-            z-10 fixed lg:bottom-4 ${open ? `py-6 h-[200px] bg-amber-300 rounded-b-[10%] inset-x-0 
+            z-10 fixed lg:top-[19rem] ${open ? `py-6 h-[200px] bg-amber-300 rounded-b-[10%] inset-x-0 
             lg:inset-x-auto px-4 lg:px-0 lg:bg-transparent lg:h-auto lg:py-0` : 'hidden lg:flex'}`}>
                 <h1 className='font-bold text-2xl lg:hidden'>Serey's Corner</h1>
                 <Link 
