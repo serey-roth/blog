@@ -16,8 +16,8 @@ const Intro = () => {
             <div className='flex flex-col'>
                 <h3 className='font-bold text-3xl my-2'>Hello, I'm Serey!</h3>
                 <p className='text-md row-start-2'>
-                    Welcome to my corner. This is where I share my portfolio, my thoughts
-                    and everthing that I'm obsessed with at the moment.
+                    Welcome to my corner. This is where I share my thoughts
+                    and everything that I am obsessed with at the moment.
                 </p>
             </div>
         </div>
