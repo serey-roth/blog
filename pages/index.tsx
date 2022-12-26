@@ -12,7 +12,7 @@ export default function Home({ posts }: Props) {
     return (
         <Layout mainPage>
             <Head>
-                <title>Serey's Thoughts</title>
+                <title>Serey&apos;s Thoughts</title>
             </Head>
             <div className='h-full overflow-auto flex flex-col gap-4'>
                 <div className='lg:sticky lg:top-0 bg-amber-300 drop-shadow-md

@@ -13,7 +13,7 @@ const Navbar = ({ open }) => {
             <nav className={`flex flex-col items-start gap-3 will-change-transform
             z-10 fixed lg:top-[19rem] ${open ? `py-6 h-fit bg-amber-300 rounded-b-[10%] inset-x-0 
             lg:inset-x-auto px-4 lg:px-0 lg:bg-transparent lg:h-auto lg:py-0` : 'hidden lg:flex'}`}>
-                <h1 className='font-bold text-2xl lg:hidden'>Serey's Corner</h1>
+                <h1 className='font-bold text-2xl lg:hidden'>Serey&apos;s Corner</h1>
                 <Link 
                     className='flex items-center gap-2 hover:text-gray-400 transition-colors'
                     href='/'>
