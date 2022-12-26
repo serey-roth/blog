@@ -1,28 +1,15 @@
 import React from 'react'
 import Image from 'next/image'
-import Layout from '../../components/Layout'
 import Head from 'next/head'
 
-const CONTENTFUL_URL = `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master`
+import Layout from '../../components/Layout'
+import { CONTENTFUL_URL, PostWithDescription } from '../../lib'
 
-interface ImageItem {
-    title: string,
-    url: string,
-    description: string,
+interface Props {
+    post: PostWithDescription;
 }
 
-interface PostProps {
-    post: {
-        id: string,
-        firstPublishedAt: string, 
-        title: string,
-        description: any,
-        author: string,
-        images: ImageItem[]
-    }
-}
-
-const Post = ({ post }: PostProps) => {
+const Post = ({ post }: Props) => {
     return (
         <Layout mainPage={false}>
             <Head>
