@@ -2,7 +2,6 @@ import React from 'react'
 import Link from 'next/link'
 
 import { BiInfoCircle, BiHomeHeart} from 'react-icons/bi'
-import { SiMicrodotblog } from 'react-icons/si'
 
 const Navbar = ({ open }) => {
     return (
@@ -26,12 +25,6 @@ const Navbar = ({ open }) => {
                     href='/about'>
                     <BiInfoCircle size={25} />
                     <p>About</p>
-                </Link>
-                <Link 
-                    className='flex items-center gap-2 hover:text-gray-400 transition-colors'
-                    href='/blog'>
-                    <SiMicrodotblog size={25} />
-                    <p>Blog</p>
                 </Link>
             </nav>
         </>
