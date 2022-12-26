@@ -1,9 +1,9 @@
 import React from 'react'
-import Image from 'next/image'
 import Head from 'next/head'
 
 import Layout from '../../components/Layout'
 import { CONTENTFUL_URL, PostWithDescription } from '../../lib'
+import LoadedImage from '../../components/LoadedImage'
 
 interface Props {
     post: PostWithDescription;
@@ -18,16 +18,15 @@ const Post = ({ post }: Props) => {
             <article className='flex flex-col gap-4 pt-3 bottom-0 max-w-[1000px]
             relative left-1/2 -translate-x-1/2 leading-relaxed'>
                 <div className='w-full flex mb-4'>
-                {post.images.map(image => (
-                        <Image 
+                    {post.images.map(image => (
+                        <LoadedImage
+                            key={image.title}
                             src={image.url}
                             alt={image.description}
                             width={300}
                             height={400}
-                            priority
-                            quality={100}
-                            className=' max-h-[500px] w-full aspect-auto origin-bottom'
-                            />
+                            classes='max-h-[500px] w-full aspect-auto origin-bottom'
+                        />
                     ))}
                 </div>
                 <h1 className='text-3xl lg:text-5xl font-bold'>{post.title}</h1>
