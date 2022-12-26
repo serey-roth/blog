@@ -8,7 +8,7 @@ const Footer = () => {
         <div className='flex flex-col md:flex-row lg:flex-wrap
         md:items-center md:justify-between w-full py-2
         lg:fixed lg:bottom-2 lg:max-w-[250px] z-10'>
-            <p>2022 Serey's Corner. All Rights Reserved.</p>
+            <p>2022 Serey&apos;s Corner. All Rights Reserved.</p>
             <div className='flex items-center gap-2 mt-2'>
                 <Link href='https://www.facebook.com/ratanak.serey/'>
                     <FaFacebook size={25} className='text-amber-600' />

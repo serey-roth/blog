@@ -18,7 +18,7 @@ export default function Home({ posts }: Props) {
                 <div className='lg:sticky lg:top-0 bg-amber-300 drop-shadow-md
                 p-4 rounded-t-lg rounded-b-xl text-center lg:text-left z-[5]
                 text-white shadow-amber-100'>
-                    <h1 className='font-bold text-3xl lg:text-5xl'>Serey's Thoughts</h1>
+                    <h1 className='font-bold text-3xl lg:text-5xl'>Serey&apos;s Thoughts</h1>
                 </div>
                 <Posts posts={posts} />
             </div>
